@@ -10,7 +10,9 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(A0);              // read the value from the analog input
   int angle = map(sensorValue, 0, 1023, 0, 180); // map it to a range of 0 to 180
-  
+  if (angle>51){
+    angle=51;  // limits angle between 0-51.
+  }
   myservo.write(angle); // sets the servo position according to the scaled value
   
   // Calculate the percentage of the sensor value
