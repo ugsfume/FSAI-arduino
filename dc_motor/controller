@@ -1,0 +1,49 @@
+#include <Servo.h>
+
+Servo motor;
+Servo steer;
+int motorValue = 99; // Initial motor value
+int steerValue = 26;
+
+void setup() {
+  motor.attach(10);
+  steer.attach(5);
+  Serial.begin(9600);
+  Serial.println("Motor control initialized. Send commands for motor and steer: '1' for left, '2' for right, '3' for forward, '4' for backward.");
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    char input = Serial.read();
+
+    if (input == '5') {
+      motorValue = motorValue + 1;
+    } else if (input == '2') {
+      motorValue = motorValue - 1;
+    } else if (input == '1') {
+      steerValue = steerValue - 1;
+    } else if (input == '3') {
+      steerValue = steerValue + 1;
+    } else if (input == '0') {
+      motorValue = 99;
+      steerValue = 26;
+    }
+
+    // Ensure motorValue stays within bounds
+    motorValue = constrain(motorValue, 99, 150);
+    // Ensure steerValue stays within bounds
+    steerValue = constrain(steerValue, 0, 51);
+
+    motor.write(motorValue);
+    steer.write(steerValue);
+
+    // Print the received values for verification
+    Serial.print("\n");
+    Serial.print("Received command: ");
+    Serial.println(input);
+    Serial.print("Angle for motor: ");
+    Serial.println(motorValue);
+    Serial.print("Angle for steer: ");
+    Serial.println(steerValue);
+  }
+}
