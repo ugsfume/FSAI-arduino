@@ -21,7 +21,7 @@ class LapCounter:
         # State
         self.car_position = Point()
         self.cone_destination = Point()
-        self.previous_destination = Point()
+        self.previous_position = Point()
         self.lap_count = 0  # Lap count
     
     def cone_callback(self, msg):
