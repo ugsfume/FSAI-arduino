@@ -44,7 +44,7 @@ class LapCounter:
                         self.lap_count += 1
                         rospy.loginfo("Lap completed! Total laps: %d", self.lap_count)
             self.previous_position = self.car_position
-            self.Lap_counter_pub.publish(lap_count)
+            self.Lap_counter_pub.publish(self.lap_count)
 
 if __name__ == '__main__':
     try:
